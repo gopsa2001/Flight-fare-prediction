@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Price Prediction</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url(https://img.freepik.com/free-photo/airport-terminal_1417-1461.jpg?w=996&t=st=1687613121~exp=1687613721~hmac=bf9c98b37dac7930fff813bbdd5814270ddcf1a39228784d9e216c4aa55f5f36);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            color: beige;
+            
+        }
+        h3{
+            font-size:25px; 
+            color: black; 
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h5 {
+            text-align: center;
+            color: black;
+        }
+        h4 {
+            text-align: center;
+            color: white;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .card-body {
+    padding: 1rem;
+}
+
+.card-title {
+    margin-bottom: 1rem;
+}
+
+.card-body input,
+.card-body select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn-submit {
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            color: beige;
+            background-color: #664646;
+            width: 200px;
+            font-weight: bold;
+            font-size: 25px;
+            border: none;
+            border-radius: 10px;
+            border: 2px solid antiquewhite;
+        }
+
+        .result {
+            font-size: 25px;
+            color: rgb(151, 72, 72);
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            
+            
+        }
+
+        footer span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        footer a img {
+            height: 15px;
+            width: 20px;
+            margin-right: 5px;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container form-container">
+        <h1><b><i>Flight Fare Predictor</i></b></h1>
+        <h4>Enter the details to get an estimated Flight Ticket Price!</h4>
+
+        <form action="/predict" method="post">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Departure Date</h5>
+                            <input type="datetime-local" name="Dep_Time" id="Dep_Time" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Arrival Date</h5>
+                            <input type="datetime-local" name="Arrival_Time" id="Arrival_Time" required="required">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Source</h5>
+                            <select name="Source" id="Source" required="required">
+                                <option value="Delhi">Delhi</option>
+                                <option value="Kolkata">Kolkata</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Chennai">Chennai</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Destination</h5>
+                            <select name="Destination" id="Destination" required="required">
+                                <option value="Cochin">Cochin</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="New Delhi">New Delhi</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Kolkata">Kolkata</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Stops</h5>
+                            <select name="stops" required="required">
+                                <option value="0">Non-Stop</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Which Airline do you want to travel with?</h5>
+                            <select name="airline" id="airline" required="required">
+                                <option value="Jet Airways">Jet Airways</option>
+                                <option value="IndiGo">IndiGo</option>
+                                <option value="Air India">Air India</option>
+                                <option value="Multiple carriers">Multiple carriers</option>
+                                <option value="SpiceJet">SpiceJet</option>
+                                <option value="Vistara">Vistara</option>
+                                <option value="Air Asia">Air Asia</option>
+                                <option value="GoAir">GoAir</option>
+                                <option value="Multiple carriers Premium economy">Multiple carriers Premium economy
+                                </option>
+                                <option value="Jet Airways Business">Jet Airways Business</option>
+                                <option value="Vistara Premium economy">Vistara Premium economy</option>
+                                <option value="Trujet">Trujet</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <br>
+                <button type="submit" class="btn btn-submit">Submit</button>
+            </div>
+        </form>
+
+        <div class="result">
+            <h3>{{ prediction_text }}</h3>
+        </div>
+    </div>
+
+    <footer>
+        <span>Created by Gopal Singh Chouhan</span>
+        <p>Connect with me:
+            <a href="https://www.linkedin.com/in/gopal-singh-chouhan-89069b233/" target="blank"><img
+                    src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" height="15" width="20" /></a>
+            <a href="https://github.com/gopsa2001" target="blank"><img
+                    src="https://www.vectorlogo.zone/logos/github/github-tile.svg" alt="GitHub" height="15" width="20" /></a>
+            <a href="https://www.instagram.com/_gopsa/"><img
+                    src="https://www.freepnglogos.com/uploads/logo-ig-png/logo-ig-png-instagram-logo-camel-productions-website-25.png"
+                    height="15" width="20" /></a>
+            <a href="mailto:gopsa2001@gmail.com"><img
+                    src="https://seeklogo.com/images/G/gmail-new-2020-logo-32DBE11BB4-seeklogo.com.png" height="15"
+                    width="20" /></a>
+        </p>
+    </footer>
+</body>
+
+</html>
